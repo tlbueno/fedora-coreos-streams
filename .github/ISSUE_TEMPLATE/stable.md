@@ -50,7 +50,7 @@ Sometimes you need to run the process manually like if you need to add an extra 
 
 Using the [the build browser for the `stable` stream](https://builds.coreos.fedoraproject.org/browser?stream=stable):
 
-- Verify that the parent commit and version match the previous `stable` release (in the future, we'll want to integrate this check in the release job)
+- Verify that the version inside `meta.json` file match the previous `next` release (in the future, we'll want to integrate this check in the release job)
     - [ ] x86_64
     - [ ] aarch64
     - [ ] ppc64le
@@ -140,19 +140,19 @@ fedora-coreos-stream-generator -releases=https://fcos-builds.s3.amazonaws.com/pr
 - [ ] Once approved, merge it and verify that the [`sync-stream-metadata` job](https://jenkins-fedora-coreos-pipeline.apps.ocp.fedoraproject.org/job/sync-stream-metadata/) syncs the contents to S3
 - [ ] Verify the new version shows up on [the download page](https://getfedora.org/en/coreos/download?stream=stable)
 - Verify the incoming edges are showing up in the update graph.
-    - [ ] [x86_64](https://builds.coreos.fedoraproject.org/graph?stream=stable&basearch=x86_64)
-    - [ ] [aarch64](https://builds.coreos.fedoraproject.org/graph?stream=stable&basearch=aarch64)
-    - [ ] [ppc64le](https://builds.coreos.fedoraproject.org/graph?stream=stable&basearch=ppc64le)
-    - [ ] [s390x](https://builds.coreos.fedoraproject.org/graph?stream=stable&basearch=s390x)
+    - [ ] [x86_64](https://builds.coreos.fedoraproject.org/graph?stream=stable&basearch=x86_64&oci=true)
+    - [ ] [aarch64](https://builds.coreos.fedoraproject.org/graph?stream=stable&basearch=aarch64&oci=true)
+    - [ ] [ppc64le](https://builds.coreos.fedoraproject.org/graph?stream=stable&basearch=ppc64le&oci=true)
+    - [ ] [s390x](https://builds.coreos.fedoraproject.org/graph?stream=stable&basearch=s390x&oci=true)
 
 <details>
   <summary>Update graph manual check</summary>
 
 ```
-curl -H 'Accept: application/json' 'https://updates.coreos.fedoraproject.org/v1/graph?basearch=x86_64&stream=stable&rollout_wariness=0'
-curl -H 'Accept: application/json' 'https://updates.coreos.fedoraproject.org/v1/graph?basearch=aarch64&stream=stable&rollout_wariness=0'
-curl -H 'Accept: application/json' 'https://updates.coreos.fedoraproject.org/v1/graph?basearch=ppc64le&stream=stable&rollout_wariness=0'
-curl -H 'Accept: application/json' 'https://updates.coreos.fedoraproject.org/v1/graph?basearch=s390x&stream=stable&rollout_wariness=0'
+curl -H 'Accept: application/json' 'https://updates.coreos.fedoraproject.org/v1/graph?basearch=x86_64&stream=stable&rollout_wariness=0&oci=true'
+curl -H 'Accept: application/json' 'https://updates.coreos.fedoraproject.org/v1/graph?basearch=aarch64&stream=stable&rollout_wariness=0&oci=true'
+curl -H 'Accept: application/json' 'https://updates.coreos.fedoraproject.org/v1/graph?basearch=ppc64le&stream=stable&rollout_wariness=0&oci=true'
+curl -H 'Accept: application/json' 'https://updates.coreos.fedoraproject.org/v1/graph?basearch=s390x&stream=stable&rollout_wariness=0&oci=true'
 ```
 
 </details>
